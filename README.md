@@ -1,6 +1,5 @@
-```python
-# Buat README.md yang impressive
-readme_content = """# 🐱 Maya Model 1 - AI Cat Generator
+```markdown
+# 🐱 Maya Model 1 - AI Cat Generator
 
 <div align="center">
 
@@ -43,17 +42,17 @@ readme_content = """# 🐱 Maya Model 1 - AI Cat Generator
 ```
 
 Maya-model-1/
-├──📂 data/
-│└── 📂 my_cats/
-│├── 📂 CatDog/           # Original dataset (55 cats + 55 dogs)
-│└── 📂 cats_only/        # Filtered cat images (55 images)
-├──🐍 model.py                  # U-Net implementation
-├──🏋️ train.py                 # Training pipeline
-├──📥 dataset.py               # Data loading & preprocessing
-├──🎨 generate.py              # Image generation script
-├──💾 cat_model.pth            # Pre-trained weights
-├──📜 requirements.txt         # Dependencies
-└──📖 README.md               # This file
+├──data/
+│└── my_cats/
+│├── CatDog/           # Original dataset (55 cats + 55 dogs)
+│└── cats_only/        # Filtered cat images (55 images)
+├──model.py                  # U-Net implementation
+├──train.py                  # Training pipeline
+├──dataset.py                # Data loading & preprocessing
+├──generate.py               # Image generation script
+├──cat_model.pth             # Pre-trained weights
+├──requirements.txt          # Dependencies
+└──README.md                 # This file
 
 ```
 
@@ -68,7 +67,7 @@ pip install -r requirements.txt
 
 2. Train the Model
 
-```python
+```bash
 # Train with default settings
 python train.py
 
@@ -163,7 +162,7 @@ train_model(
 
 Prerequisites
 
-```bash
+```txt
 torch>=2.0.0
 torchvision>=0.15.0
 Pillow>=9.0.0
@@ -236,3 +235,4 @@ Bagas Koro
 "From 3 images to AI artist - the journey of Maya Model 1!" 🎨🐱
 
 </div>
+```
