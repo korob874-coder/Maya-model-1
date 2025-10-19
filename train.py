@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from model import SimpleUNet
-from dataset import SimpleImageDataset
+from dataset import CatDataset
 import os
 from tqdm import tqdm
 
