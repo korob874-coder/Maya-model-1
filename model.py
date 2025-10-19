@@ -35,7 +35,12 @@ class SimpleUNet(nn.Module):
         e3 = self.enc3(F.max_pool2d(e2, 2))
         
         # Decoder dengan skip connections
-        d2 = self.dec2(torch.cat([e3, e2], dim=1))
-        d1 = self.dec1(torch.cat([d2, e1], dim=1))
+        # UPSAMPLE e3 dari 16x16 ke 32x32 sebelum concat dengan e2
+        e3_upsampled = F.interpolate(e3, size=e2.shape[2:], mode='bilinear', align_corners=False)
+        d2 = self.dec2(torch.cat([e3_upsampled, e2], dim=1))
+        
+        # UPSAMPLE d2 dari 32x32 ke 64x64 sebelum concat dengan e1
+        d2_upsampled = F.interpolate(d2, size=e1.shape[2:], mode='bilinear', align_corners=False)
+        d1 = self.dec1(torch.cat([d2_upsampled, e1], dim=1))
         
         return self.final(d1)
