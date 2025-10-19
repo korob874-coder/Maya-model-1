@@ -1,34 +1,29 @@
+
 import os
-from PIL import Image
 import torch
 from torch.utils.data import Dataset
-from torchvision import transforms
+from PIL import Image
+import torchvision.transforms as transforms
 
-class CatDataset(Dataset):
-    def __init__(self, image_folder, image_size=64):
-        self.image_paths = [
-            os.path.join(image_folder, f) 
-            for f in os.listdir(image_folder) 
-            if f.lower().endswith(('png', 'jpg', 'jpeg', 'webp'))
-        ]
+class SimpleImageDataset(Dataset):
+    def __init__(self, image_dir="/content/Maya-model-1/data/my_cats/cats_only", image_size=64):
+        self.image_dir = image_dir
+        self.image_size = image_size
+        self.image_files = [f for f in os.listdir(image_dir) 
+                           if f.endswith(('.jpg', '.png', '.jpeg'))]
         
-        print(f"Found {len(self.image_paths)} cat images! 🐱")
+        print(f"🐱 Loading {{len(self.image_files)}} cat images from {{image_dir}}")
         
         self.transform = transforms.Compose([
             transforms.Resize((image_size, image_size)),
-            transforms.RandomHorizontalFlip(p=0.5),  # Data augmentation
             transforms.ToTensor(),
-            transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])  # RGB normalization
+            transforms.Normalize([0.5], [0.5])
         ])
-    
+        
     def __len__(self):
-        return len(self.image_paths)
+        return len(self.image_files)
     
     def __getitem__(self, idx):
-        try:
-            image = Image.open(self.image_paths[idx]).convert('RGB')
-            return self.transform(image)
-        except Exception as e:
-            print(f"Error loading {self.image_paths[idx]}: {e}")
-            # Return a blank image if there's error
-            return torch.zeros(3, 64, 64)
+        img_path = os.path.join(self.image_dir, self.image_files[idx])
+        image = Image.open(img_path).convert('RGB')
+        return self.transform(image)
