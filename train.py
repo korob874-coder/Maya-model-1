@@ -1,8 +1,16 @@
+import os
+print("🔍 DEBUG - Current working directory:", os.getcwd())
+print("🔍 DEBUG - Files in current directory:", os.listdir('.'))
+print("🔍 DEBUG - Files in data directory:", os.listdir('data') if os.path.exists('data') else "data folder not found")
+print("🔍 DEBUG - Files in data/my_cats:", os.listdir('data/my_cats') if os.path.exists('data/my_cats') else "data/my_cats not found")
+
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from model import SimpleUNet
-from dataset import CatDataset
+print("🔍 DEBUG - About to create dataset...")
+print("🔍 DEBUG - Dataset path will be:", image_dir if "image_dir" in locals() else "default")
+from dataset import SimpleImageDataset
 import os
 from tqdm import tqdm
 
@@ -66,7 +74,7 @@ if __name__ == "__main__":
     epochs = 100
     
     # Dataset - GUNAKAN FOLDER KUCING ANDA
-    dataset = CatDataset('data/my_cats', image_size=image_size)
+    dataset = SimpleImageDataset('data/my_cats/cats_only', image_size=image_size)
     
     # Check if we have enough images
     if len(dataset) < 10:
